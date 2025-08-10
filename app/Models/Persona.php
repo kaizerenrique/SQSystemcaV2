@@ -32,4 +32,9 @@ class Persona extends Model
     {
         return $this->hasOne(Phone::class);
     }
+
+    public function historial()
+    {
+        return $this->hasMany(Historial::class);
+    }
 }

@@ -76,4 +76,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Persona::class);
     }
+
+    /**
+     * Relación con tabla de laboratorio.
+     * Usuario tiene un perfil de laboratorio. 
+     */
+
+    public function laboratorio()
+    {
+        return $this->hasOne(Laboratorio::class);
+    }
 }

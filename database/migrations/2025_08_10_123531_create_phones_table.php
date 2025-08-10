@@ -18,6 +18,11 @@ return new class extends Migration
                     ->constrained()  // <-- DEFINE LA RESTRICCION DE LLAVE FORANEA
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+            $table->foreignId('laboratorio_id') // UNSIGNED BIG INT
+                    ->nullable() // <-- IMPORTANTE: LA COLUMNA DEBE ACEPTAR NULL COMO VALOR VALIDO
+                    ->constrained()  // <-- DEFINE LA RESTRICCION DE LLAVE FORANEA
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             $table->string('codigo_internacional')->nullable();
             $table->string('codigo_operador')->nullable();
             $table->string('nrotelefono')->nullable();

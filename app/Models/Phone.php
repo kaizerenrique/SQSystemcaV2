@@ -21,8 +21,9 @@ class Phone extends Model
         return $this->belongsTo(Persona::class);
     }
 
-    public function telefono()
+    public function laboratorio()
     {
-        return $this->hasOne(Phone::class);
+        return $this->belongsTo(Laboratorio::class);
     }
+    
 }

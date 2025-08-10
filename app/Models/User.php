@@ -66,4 +66,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relación con tabla de Persona.
+     * Usuario tiene un perfil de persona. 
+     */
+
+    public function persona()
+    {
+        return $this->hasOne(Persona::class);
+    }
 }

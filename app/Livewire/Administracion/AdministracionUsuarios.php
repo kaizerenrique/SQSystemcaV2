@@ -24,6 +24,9 @@ class AdministracionUsuarios extends Component
     public $titulo,$mensajemodal;
     public $nombre, $correo, $laboratorio, $rif, $codigo_internacional, $codigo_operador, $nrotelefono, $whatsapp ;
 
+    public $eliminarlaboratorio = false;
+    public $idusuario;
+
     protected function rules()
     {
         if ($modalagregarlaboratorio = true) {
@@ -100,6 +103,24 @@ class AdministracionUsuarios extends Component
         ]);
 
         $this->modalagregarlaboratorio = false;
+        session()->flash('message', 'Se a registrado correctamente');
         
+    }
+
+    public function consultaborrarlaboratorio(User $usuario)
+    {
+        $this->titulo = "Borrar laboratorio";
+        $this->mensajemodal = "Está seguro de querer borrar el laboratorio ". $usuario->laboratorio->nombre;
+        $this->idusuario = $usuario->id;
+
+        $this->eliminarlaboratorio = true;
+    }
+
+    public function borrarlaboratorio(User $usuario)
+    {
+        $this->eliminarlaboratorio = false;
+        $nombre = $usuario->laboratorio->nombre;
+        $usuario->delete(); 
+        session()->flash('message', 'Se a eliminado correctamente el laboratorio: '.$nombre);
     }
 }

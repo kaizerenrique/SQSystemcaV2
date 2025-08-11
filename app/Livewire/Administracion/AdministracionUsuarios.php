@@ -27,6 +27,8 @@ class AdministracionUsuarios extends Component
     public $eliminarlaboratorio = false;
     public $idusuario;
 
+    public $modalverlaboratorio = false;
+
     protected function rules()
     {
         if ($modalagregarlaboratorio = true) {
@@ -122,5 +124,19 @@ class AdministracionUsuarios extends Component
         $nombre = $usuario->laboratorio->nombre;
         $usuario->delete(); 
         session()->flash('message', 'Se a eliminado correctamente el laboratorio: '.$nombre);
+    }
+
+    public function verlaboratorio(User $usuario)
+    {
+        $this->titulo = "Ver Datos de Laboratorio";
+        $this->nombre = $usuario->name;
+        $this->correo = $usuario->email;
+        $this->rif = $usuario->laboratorio->rif;
+        $this->laboratorio = $usuario->laboratorio->nombre;
+        $this->codigo_internacional = $usuario->laboratorio->telefono->codigo_internacional;
+        $this->codigo_operador = $usuario->laboratorio->telefono->codigo_operador;
+        $this->nrotelefono = $usuario->laboratorio->telefono->nrotelefono;
+        $this->whatsapp = $usuario->laboratorio->telefono->whatsapp;
+        $this->modalverlaboratorio = true;
     }
 }

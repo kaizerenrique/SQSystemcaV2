@@ -78,7 +78,7 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" wire:click="verlaboratorio({{ $usuario->id }})" >
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -173,7 +173,7 @@
                 </div>
                 <div class="col-span-2 sm:col-span-4 md:col-span-4">
                     <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
+                    <input type="checkbox" id="whatsapp" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
                         wire:model="whatsapp" checked>
                 </div>
 
@@ -215,6 +215,76 @@
                 {{ __('Eliminar') }}
             </button>
         </x-slot>
-    </x-dialog-modal>    
+    </x-dialog-modal>   
+
+    <!-- Inicio del Modal para Agregar Laboratorio -->
+    <x-dialog-modal wire:model="modalverlaboratorio">
+        <x-slot name="title">
+            {{ $titulo }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Nombre del Usuario') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="nombre" disabled />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="correo" value="{{ __('Correo del Usuario') }}" />
+                    <x-input type="email" class="mt-1 input input-bordered w-full rounded-lg" wire:model="correo" disabled />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Nombre del Laboratorio') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
+                        wire:model="laboratorio" disabled />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Rif del Usuario') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="rif" disabled/>
+                    
+                </div>
+
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="codigo_internacional" value="{{ __('Código Internacional') }}" />
+                    <select name="codigo_internacional" id="codigo_internacional" wire:model="codigo_internacional"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm" disabled>
+                        <option value="" selected>Seleccione</option>
+                        <option value="+58">+58</option>
+                    </select>
+                </div>
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="codigo_operador" value="{{ __('Código de Operador') }}" />
+                    <select name="codigo_operador" id="codigo_operador" wire:model="codigo_operador"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm" disabled>
+                        <option value="" selected>Seleccione</option>
+                        <option value="412">412</option>
+                        <option value="414">414</option>
+                        <option value="424">424</option>
+                        <option value="416">416</option>
+                        <option value="424">426</option>
+                    </select>
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nrotelefono" value="{{ __('Números de Teléfono') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
+                        wire:model="nrotelefono" disabled />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
+                        wire:model="whatsapp" disabled>
+                </div>
+
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('modalverlaboratorio', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Cancelar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal>
+    <!-- Fin del Modal para Agregar Laboratorio -->
 
 </div>

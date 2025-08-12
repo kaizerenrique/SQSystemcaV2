@@ -87,7 +87,7 @@
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </div>
-                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" wire:click="editarlaboratorio({{ $usuario->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -217,7 +217,7 @@
         </x-slot>
     </x-dialog-modal>   
 
-    <!-- Inicio del Modal para Agregar Laboratorio -->
+    <!-- Inicio del Modal para Ver Laboratorio -->
     <x-dialog-modal wire:model="modalverlaboratorio">
         <x-slot name="title">
             {{ $titulo }}
@@ -285,6 +285,109 @@
             </button>
         </x-slot>
     </x-dialog-modal>
+    <!-- Fin del Modal para Ver Laboratorio -->
+
+    <!-- Inicio del Modal para Agregar Laboratorio -->
+    <x-dialog-modal wire:model="modaleditarlaboratorio">
+        <x-slot name="title">
+            {{ $titulo }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Nombre del Usuario') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="nombre" />
+                    <x-input-error for="nombre" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="correo" value="{{ __('Correo del Usuario') }}" />
+                    <x-input type="email" class="mt-1 input input-bordered w-full rounded-lg" wire:model="correo" />
+                    <x-input-error for="correo" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Nombre del Laboratorio') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
+                        wire:model="laboratorio" />
+                    <x-input-error for="laboratorio" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombre" value="{{ __('Rif del Usuario') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="rif" />
+                    <x-input-error for="rif" class="mt-2" />
+                </div>
+
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="codigo_internacional" value="{{ __('Código Internacional') }}" />
+                    <select name="codigo_internacional" id="codigo_internacional" wire:model="codigo_internacional"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="+58">+58</option>
+                    </select>
+                    <x-input-error for="codigo_internacional" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="codigo_operador" value="{{ __('Código de Operador') }}" />
+                    <select name="codigo_operador" id="codigo_operador" wire:model="codigo_operador"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="412">412</option>
+                        <option value="414">414</option>
+                        <option value="424">424</option>
+                        <option value="416">416</option>
+                        <option value="424">426</option>
+                    </select>
+                    <x-input-error for="codigo_operador" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nrotelefono" value="{{ __('Números de Teléfono') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
+                        wire:model="nrotelefono" />
+                    <x-input-error for="nrotelefono" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <input type="checkbox" id="whatsapp" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
+                        wire:model="whatsapp" checked>
+                </div>
+
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('modaleditarlaboratorio', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Cancelar') }}
+            </button>
+            <button type="button" wire:click="editarlab()" wire:loading.attr="disabled"
+                class="border border-emerald-700 bg-emerald-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-emerald-800 focus:outline-none focus:shadow-outline">
+                {{ __('Guardar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal>
     <!-- Fin del Modal para Agregar Laboratorio -->
 
+    <!-- Inicio del Modal para Alerta Eliminar cuenta -->
+    <x-dialog-modal wire:model="mostrarTokenApi">
+        <x-slot name="title">
+            {{$titulo}}
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="token" value="{{ __('Token API') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="token" disabled />
+                </div>  
+            </div>             
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('mostrarTokenApi', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Aceptar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal> 
 </div>

@@ -14,4 +14,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/usuarios', function () {
+        return view('paginas/administracion/usuarios');
+    })->name('usuarios');
 });

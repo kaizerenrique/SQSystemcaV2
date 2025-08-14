@@ -15,6 +15,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (@Auth::user()->hasPermissionTo('menuAdmin'))
+                        <x-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>                        
+                    @endif                    
                 </div>
             </div>
 

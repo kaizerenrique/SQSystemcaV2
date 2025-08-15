@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits\Servicios;
+use Illuminate\Support\Facades\Http;
 use App\Models\Valorbcv;
 
 trait Consultabcv
@@ -52,35 +53,45 @@ trait Consultabcv
 
     public function consultarelvalordelusd()
     {
+        // Obtener valor actual del BCV
+        $usdActual = $this->valorbcv();
         
-        $usd = $this->valorbcv();
-
-        if ($usd == false) {
-            $text = 'error de consulta de USD';
-            return false;
-        } else {
-            $valor = $this->valordelusd();
-
-            if (!empty($valor)) {
-                if ($usd == $valor) {  
-                    return true;
-                } else {
-                    $moneda = Valorbcv:: create([                    
-                        'valor' => $usd,
-                    ]);             
-                }
-                return true; 
-            } else {
-                return false; 
-            }
+        // Manejar error de conexión con BCV
+        if ($usdActual === false) {
+            return $this->obtenerUltimoValorSeguro();
         }
+        
+        // Normalizar a 3 decimales
+        $usdActual = round($usdActual, 3);
+        
+        // Obtener último valor almacenado
+        $ultimoValor = $this->valordelusd();
+        
+        // Si no hay registros o el valor cambió, almacenar nuevo valor
+        if ($ultimoValor === null || abs($ultimoValor - $usdActual) > 0.001) {
+            Valorbcv::create(['valor' => $usdActual]);
+        }
+        
+        return true;
     }
 
     public function valordelusd()
     {
-        $valormoneda = Valorbcv::orderBy('created_at', 'desc')->first();
+        $registro = Valorbcv::latest('created_at')->first();
+        return $registro ? round($registro->valor, 3) : null;
+    }
+
+    // Nuevo método para manejar errores
+    private function obtenerUltimoValorSeguro()
+    {
+        $ultimo = $this->valordelusd();
         
-        $valor = round($valormoneda['valor'] , 3);
-        return $valor;
+        if ($ultimo === null) {
+            // Registrar emergencia si no hay valores
+            Log::emergency('No hay valores BCV almacenados y falló la conexión');
+            return false;
+        }
+        
+        return true;
     }
 }

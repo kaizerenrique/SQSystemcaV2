@@ -10,7 +10,6 @@ class Historial extends Model
     use HasFactory;
 
     protected $fillable = [
-        'codigo',
         'nombreArchivo',
         'url_simbol',
         'url_code',

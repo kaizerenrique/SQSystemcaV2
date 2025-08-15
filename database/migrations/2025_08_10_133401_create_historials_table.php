@@ -24,7 +24,6 @@ return new class extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
 
-            $table->string('codigo',8);//codigo unico
             $table->string('nombreArchivo',120);
             $table->string('url_simbol', 2048)->nullable();
             $table->string('url_code', 21)->nullable();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('valorbcvs', function (Blueprint $table) {
             $table->id();
-            $table->decimal('valor', 5, 3);
+            $table->decimal('valor', 10, 3);
             $table->timestamps();
         });
     }

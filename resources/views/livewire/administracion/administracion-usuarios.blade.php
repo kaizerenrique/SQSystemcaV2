@@ -171,10 +171,16 @@
                         wire:model="nrotelefono" />
                     <x-input-error for="nrotelefono" class="mt-2" />
                 </div>
-                <div class="col-span-2 sm:col-span-4 md:col-span-4">
-                    <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
-                    <input type="checkbox" id="whatsapp" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
-                        wire:model="whatsapp" checked>
+
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="whatsapp" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <select name="whatsapp" id="whatsapp" wire:model="whatsapp"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                    <x-input-error for="whatsapp" class="mt-2" />
                 </div>
 
             </div>
@@ -268,10 +274,14 @@
                     <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
                         wire:model="nrotelefono" disabled />
                 </div>
-                <div class="col-span-2 sm:col-span-4 md:col-span-4">
-                    <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
-                        wire:model="whatsapp" disabled>
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="whatsapp" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <select name="whatsapp" id="whatsapp" wire:model="whatsapp"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm" disabled>
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
                 </div>
 
             </div>
@@ -344,10 +354,15 @@
                         wire:model="nrotelefono" />
                     <x-input-error for="nrotelefono" class="mt-2" />
                 </div>
-                <div class="col-span-2 sm:col-span-4 md:col-span-4">
-                    <x-label for="activar" value="{{ __('¿Tiene Whatsapp?') }}" />
-                    <input type="checkbox" id="whatsapp" class="form-checkbox h-5 w-5 text-primary-500 rounded-full"
-                        wire:model="whatsapp" checked>
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="whatsapp" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <select name="whatsapp" id="whatsapp" wire:model="whatsapp"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                    <x-input-error for="whatsapp" class="mt-2" />
                 </div>
 
             </div>

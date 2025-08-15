@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 class AdministracionUsuarios extends Component
 {
     use WithPagination;
-    use Consultabcv;
 
     public $buscar;
 

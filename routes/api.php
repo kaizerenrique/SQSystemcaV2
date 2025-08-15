@@ -11,3 +11,4 @@ use App\Http\Controllers\API\ApiController;
 
 
 Route::get('/bcv',[ApiController::class,'bcv_valor'])->middleware('auth:sanctum');
+Route::get('/generadorDeEnlaces',[ApiController::class,'generadorDeEnlaces'])->middleware('auth:sanctum');

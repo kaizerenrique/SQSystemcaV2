@@ -10,6 +10,8 @@ class Historial extends Model
     use HasFactory;
 
     protected $fillable = [
+        'persona_id',
+        'laboratorio_id',
         'nombreArchivo',
         'url_simbol',
         'url_code',

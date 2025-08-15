@@ -84,6 +84,6 @@ class User extends Authenticatable
 
     public function laboratorio()
     {
-        return $this->hasOne(Laboratorio::class);
+        return $this->hasOne(Laboratorio::class, 'user_id');
     }
 }

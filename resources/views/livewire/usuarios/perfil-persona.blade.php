@@ -1,4 +1,22 @@
 <div class="p-6">
+    <!-- mensaje de notificacion -->
+    <div>
+        @if (session()->has('message'))
+        <div class="max-w-lg mx-auto">
+            <div class="flex bg-emerald-100 rounded-lg p-4 mb-4 text-sm text-emerald-700" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-5 w-5 mr-3" fill="none"
+                    viewBox="0 0 24 24">
+                    <path fill-rule="evenodd"
+                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                        clip-rule="evenodd" />
+                </svg>
+                <div>
+                    <span class="font-medium">{{ session('message') }}</span>.
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
     <section class="text-gray-600 body-font">
         <div class="container mx-auto">
             <div class="flex flex-wrap -mx-4 -mb-10">
@@ -31,16 +49,28 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-500 mb-1">Edad</label>
                                 <div class="bg-gray-50 px-4 py-2 rounded-lg border border-gray-200">
-                                    {{ $persona->fnacimiento ?? 'Edad' }}
+                                    @isset($persona->fnacimiento)
+                                        {{ \Carbon\Carbon::parse($persona->fnacimiento)->age }} años
+                                    @else
+                                        Edad
+                                    @endisset
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Botón condicional -->
+                        @if(empty($persona->nombres) || empty($persona->apellidos) || empty($persona->fnacimiento))
+                            <button class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition duration-200" 
+                                    wire:click="desplegarmodalderegistro()">
+                                Crear perfil
+                            </button>
+                        @else
+                            <button class="mt-6 bg-gray-400 text-white py-2 px-4 rounded-lg cursor-not-allowed" 
+                                    disabled>
+                                Perfil completado
+                            </button>
+                        @endif
                         
-                        <!-- Botón opcional 
-                        <button class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition duration-200">
-                            Actualizar perfil
-                        </button>
-                        -->
                     </div>
                 </div>
 
@@ -73,14 +103,14 @@
                                     @foreach ( $historiales as $historial )
                                         <tr>                                            
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $historial->id }}
+                                                {{ $historial->id ?? null }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $historial->nombreArchivo  }}
+                                                {{ $historial->nombreArchivo ?? null }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {{ $historial->laboratorio->nombre  }}
+                                                    {{ $historial->laboratorio->nombre ?? null }}
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -101,7 +131,7 @@
                         </div>
                         
                         <!-- Paginación (opcional) -->
-                        <div class="mt-6 flex items-center justify-between">
+                        <div class="mt-6 w-full">
                             {{ $historiales->links() }}
                         </div>
                     </div>
@@ -109,4 +139,117 @@
             </div>
         </div>
     </section>
+
+        <!-- Inicio del Modal para Agregar Laboratorio -->
+    <x-dialog-modal wire:model="modalagregarperfil">
+        <x-slot name="title">
+            {{ $titulo }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombres" value="{{ __('Nombre') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="nombres" />
+                    <x-input-error for="nombres" class="mt-2" />
+                </div>
+
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="apellidos" value="{{ __('Apellido') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="apellidos" />
+                    <x-input-error for="apellidos" class="mt-2" />
+                </div>
+
+                <div class="col-span-2 sm:col-span-2 md:col-span-2">
+                    <x-label for="fnacimiento" value="{{ __('Fecha de nacimiento') }}" />
+                    <x-input type="date" class="mt-1 input input-bordered w-full rounded-lg" wire:model="fnacimiento" max="{{ now()->format('Y-m-d') }}" />
+                    <x-input-error for="fnacimiento" class="mt-2" />                    
+                </div>
+                
+                <div class="col-span-1 sm:col-span-2">
+                    <x-label for="sexo" value="{{ __('Sexo') }}" />
+                    <select name="sexo" id="sexo" wire:model="sexo"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                    </select>
+                    <x-input-error for="sexo" class="mt-2" />
+                </div>
+
+                <div class="col-span-1 sm:col-span-1">
+                    <x-label for="nacionalidad" value="{{ __('Nacionalidad') }}" />
+                    <select name="nacionalidad" id="nacionalidad" wire:model="nacionalidad"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="V">V</option>
+                        <option value="E">E</option>
+                    </select>
+                    <x-input-error for="nacionalidad" class="mt-2" />
+                </div>
+
+                <div class="col-span-1 sm:col-span-3 md:col-span-3">
+                    <x-label for="cedula" value="{{ __('cedula') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="cedula" />
+                    <x-input-error for="cedula" class="mt-2" />
+                </div>
+
+                <div class="col-span-1 sm:col-span-1">
+                    <x-label for="codigo_internacional" value="{{ __('Código Internacional') }}" />
+                    <select name="codigo_internacional" id="codigo_internacional" wire:model="codigo_internacional"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="+58">+58</option>
+                    </select>
+                    <x-input-error for="codigo_internacional" class="mt-2" />
+                </div>
+                <div class="col-span-1 sm:col-span-1">
+                    <x-label for="codigo_operador" value="{{ __('Código de Operador') }}" />
+                    <select name="codigo_operador" id="codigo_operador" wire:model="codigo_operador"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="412">412</option>
+                        <option value="414">414</option>
+                        <option value="424">424</option>
+                        <option value="416">416</option>
+                        <option value="424">426</option>
+                    </select>
+                    <x-input-error for="codigo_operador" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-2">
+                    <x-label for="whatsapp" value="{{ __('¿Tiene Whatsapp?') }}" />
+                    <select name="whatsapp" id="whatsapp" wire:model="whatsapp"
+                        class="mt-1 block w-full border-gray-300 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                    <x-input-error for="whatsapp" class="mt-2" />
+                </div>
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nrotelefono" value="{{ __('Números de Teléfono') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg"
+                        wire:model="nrotelefono" />
+                    <x-input-error for="nrotelefono" class="mt-2" />
+                </div>
+
+
+                
+
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('modalagregarperfil', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Cancelar') }}
+            </button>
+            <button type="button" wire:click="guardarperfil()" wire:loading.attr="disabled"
+                class="border border-emerald-700 bg-emerald-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-emerald-800 focus:outline-none focus:shadow-outline">
+                {{ __('Guardar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal>
+    <!-- Fin del Modal para Agregar Laboratorio -->
 </div>

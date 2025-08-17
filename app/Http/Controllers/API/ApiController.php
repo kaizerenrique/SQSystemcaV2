@@ -13,6 +13,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ApiController extends Controller
@@ -345,6 +347,73 @@ class ApiController extends Controller
                 'status' => 500,
                 'message' => 'Error al generar identificador',
                 'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
+
+
+    public function registrarperfil(Request $request): JsonResponse
+    {
+        try {
+            // Validación básica pero efectiva
+            $request->validate([
+                'nombres' => 'required|string|min:3|max:120',
+                'apellidos' => 'required|string|min:4|max:120',
+                'fnacimiento' => 'required|date',
+                'sexo' => 'required|in:Femenino,Masculino', 
+                'nacionalidad' => 'required|string|in:V,E',
+                'cedula' => 'required|string|min:6|max:12|unique:personas,cedula',
+                'codigo_internacional' => 'required|string|size:3',
+                'codigo_operador' => 'required|string|size:3',
+                'nrotelefono' => 'required|string|min:7|max:11',
+                'whatsapp' => 'required|boolean'
+            ]);
+            
+            // Usar transacción para integridad de datos
+            DB::beginTransaction();
+            
+            // Crear perfil
+            $perfil = Persona::create([
+                'nacionalidad' => $request->nacionalidad,
+                'cedula' => $request->cedula,
+                'nombres' => $request->nombres,
+                'apellidos' => $request->apellidos,
+                'fnacimiento' => $request->fnacimiento,
+                'sexo' => $request->sexo,
+            ]);
+            
+            // Crear teléfono asociado
+            $telefono = $perfil->telefono()->create([
+                'codigo_internacional' => $request->codigo_internacional,
+                'codigo_operador' => $request->codigo_operador,
+                'nrotelefono' => $request->nrotelefono,
+                'whatsapp' => $request->whatsapp
+            ]);
+            
+            DB::commit();
+            
+            return response()->json([
+                'status' => 201,
+                'message' => 'Perfil registrado exitosamente',
+                'data' => [
+                    'perfil' => $perfil,
+                    'telefono' => $telefono
+                ]
+            ], 201);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 500,
+                'message' => 'Error al registrar el perfil',
+                'error' => $e->getMessage() // Solo para depuración
             ], 500);
         }
     }

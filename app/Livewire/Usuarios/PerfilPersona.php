@@ -16,6 +16,9 @@ class PerfilPersona extends Component
     public $modalagregarperfil = false;
     public $titulo, $nombres, $apellidos, $fnacimiento, $sexo, $nacionalidad, $cedula, $codigo_internacional, $codigo_operador, $nrotelefono, $whatsapp ;
 
+    public $modalbuscarperfil = false;
+    public $modalconfirmarperfil = false;
+
     protected function rules()
     {
         if ($modalagregarperfil = true) {
@@ -66,6 +69,49 @@ class PerfilPersona extends Component
     public function updatingBuscar()
     {
         $this->resetPage();
+    }
+
+    public function buscarperfil()
+    {
+        $this->reset(['cedula']);
+        $this->modalbuscarperfil = true;
+    }
+
+    public function identificarperfil()
+    {        
+        $this->modalbuscarperfil = false;
+
+        // Buscar persona usando una sola consulta optimizada
+        $persona = Persona::where('cedula', $this->cedula)->first();
+
+        if (!$persona) {
+            $this->desplegarmodalderegistro();
+        } else {
+            $this->modalconfirmarperfil = true;
+            $this->cedula = $persona->cedula;
+            $this->nombres = $persona->nombres;
+            $this->apellidos = $persona->apellidos;
+        }
+        
+        
+    }
+
+    public function guardaperfil()
+    {        
+        $this->modalconfirmarperfil = false;
+
+        // Buscar persona usando una sola consulta optimizada
+        $persona = Persona::where('cedula', $this->cedula)->first();
+
+        $usua = auth()->user()->id;
+
+        // Actualizar datos de usuario
+        $resul = $persona->update([
+            'user_id' => $usua ,
+        ]);
+        
+        session()->flash('message', 'Se a registrado correctamente');
+
     }
 
     public function desplegarmodalderegistro()

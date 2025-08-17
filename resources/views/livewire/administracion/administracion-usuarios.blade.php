@@ -19,7 +19,7 @@
     </div>
     <!-- Seccion que contiene el titulo las busquedas y el boton para registro nuevo -->
     <div class="flex flex-wrap items-center px-4 py-2">
-        <h5 class="font-semibold text-lg text-gray-800 ">Listado de Usuarios </h5>
+        <h5 class="font-semibold text-lg text-gray-800 ">Listado de Laboratorios</h5>
         <div class="flex flex-col items-center w-full max-w-xl">
             <input wire:model.live="buscar" type="search" placeholder="Buscar"
                 class="input input-bordered w-full max-w-xs rounded-lg" />

@@ -61,7 +61,7 @@
                         <!-- Botón condicional -->
                         @if(empty($persona->nombres) || empty($persona->apellidos) || empty($persona->fnacimiento))
                             <button class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition duration-200" 
-                                    wire:click="desplegarmodalderegistro()">
+                                    wire:click="buscarperfil()">
                                 Crear perfil
                             </button>
                         @else
@@ -140,7 +140,7 @@
         </div>
     </section>
 
-        <!-- Inicio del Modal para Agregar Laboratorio -->
+    <!-- Inicio del Modal para Agregar Perfil -->
     <x-dialog-modal wire:model="modalagregarperfil">
         <x-slot name="title">
             {{ $titulo }}
@@ -232,10 +232,6 @@
                         wire:model="nrotelefono" />
                     <x-input-error for="nrotelefono" class="mt-2" />
                 </div>
-
-
-                
-
             </div>
         </x-slot>
 
@@ -251,5 +247,75 @@
             </button>
         </x-slot>
     </x-dialog-modal>
-    <!-- Fin del Modal para Agregar Laboratorio -->
+    <!-- Fin del Modal para Agregar perfil -->
+
+    <!-- Inicio del Modal para Buscar Perfil -->
+    <x-dialog-modal wire:model="modalbuscarperfil">
+        <x-slot name="title">
+            {{ $titulo }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="cedula" value="{{ __('Número de Cédula o Código para menores sin cédula ') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="cedula" />
+                    <x-input-error for="cedula" class="mt-2" />
+                </div>           
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('modalbuscarperfil', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Cancelar') }}
+            </button>
+            <button type="button" wire:click="identificarperfil()" wire:loading.attr="disabled"
+                class="border border-emerald-700 bg-emerald-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-emerald-800 focus:outline-none focus:shadow-outline">
+                {{ __('Buscar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal>
+    <!-- Fin del Modal para Buscar perfil -->
+
+    <!-- Inicio del Modal para Confirmar Perfil -->
+    <x-dialog-modal wire:model="modalconfirmarperfil">
+        <x-slot name="title">
+            {{ $titulo }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="cedula" value="{{ __('Número de Cédula o Código para menores sin cédula ') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="cedula" disabled/>
+                    
+                </div>  
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="nombres" value="{{ __('Nombre') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="nombres" disabled/>
+                    
+                </div>
+
+                <div class="col-span-2 sm:col-span-4 md:col-span-4">
+                    <x-label for="apellidos" value="{{ __('Apellido') }}" />
+                    <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="apellidos" disabled/>
+                    
+                </div>         
+            </div>
+            
+        </x-slot>
+
+        <x-slot name="footer">
+            <button type="button" wire:click="$toggle('modalconfirmarperfil', false)"
+                wire:loading.attr="disabled"
+                class="border border-red-700 bg-red-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:outline-none focus:shadow-outline">
+                {{ __('Cancelar') }}
+            </button>
+            <button type="button" wire:click="guardaperfil()" wire:loading.attr="disabled"
+                class="border border-emerald-700 bg-emerald-700 text-white rounded-lg px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-emerald-800 focus:outline-none focus:shadow-outline">
+                {{ __('Confirmar') }}
+            </button>
+        </x-slot>
+    </x-dialog-modal>
+    <!-- Fin del Modal para Confirmar perfil -->
 </div>

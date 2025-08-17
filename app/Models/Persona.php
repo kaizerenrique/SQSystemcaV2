@@ -15,7 +15,8 @@ class Persona extends Model
         'nombres',
         'apellidos',
         'fnacimiento',
-        'sexo'
+        'sexo',
+        'user_id'
     ];
 
     /**

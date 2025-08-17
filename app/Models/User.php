@@ -86,4 +86,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(Laboratorio::class, 'user_id');
     }
+
+    /**
+     * Relación entre el usuario y los  
+     * datos de proveedor de servicio.
+     * 
+     * Relación de uno a muchos para 
+     * poder recuperar los datos de 
+     * inicio con distintos proveedores.
+     */
+    public function authProviders()
+    {
+        return $this->hasMany(AuthProvider::class);
+    }
+
 }

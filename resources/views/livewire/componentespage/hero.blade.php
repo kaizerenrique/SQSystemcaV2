@@ -1,17 +1,43 @@
-<section class="text-gray-600 body-font w-full">
-  <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-    <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Before they sold out
-        <br class="hidden lg:inline-block">readymade gluten
-      </h1>
-      <p class="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
-      <div class="flex justify-center">
-        <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-        <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
-      </div>
+<!-- Hero Section with HTML Background -->
+<section id="inicio" class="pt-24 min-h-screen flex items-center overflow-hidden relative">
+    <!-- Fondo con overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('plantilla/hero.jpeg') }}" alt="Fondo Hero" class="w-full h-full object-cover animate-fade-in">
+        <div class="absolute inset-0 bg-primary/70 backdrop-blur-sm"></div>
     </div>
-    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-      <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Software Especializado para <span class="text-accent">Laboratorios Clínicos</span>
+                </h1>
+                <p class="text-xl text-gray-100 mb-10 max-w-2xl">
+                    Optimiza tus procesos, gestiona muestras y mejora la eficiencia de tu laboratorio con nuestra
+                    solución integral.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#demo"
+                        class="bg-accent hover:bg-green-500 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow-lg">
+                        <i class="fas fa-calendar-check mr-2"></i>Solicitar Demo
+                    </a>
+                    <a href="#caracteristicas"
+                        class="bg-transparent hover:bg-white/20 text-white border border-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                        <i class="fas fa-search mr-2"></i>Conocer Más
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-80 h-80 floating">
+                    <div class="absolute inset-0 bg-primary/20 rounded-full animate-pulse"></div>
+                    <div class="absolute inset-4 bg-primary/30 rounded-full animate-pulse"></div>
+                    <div class="absolute inset-8 bg-white rounded-full flex items-center justify-center shadow-xl">
+                        <img class="w-48 h-48"
+                            src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='30' width='60' height='40' rx='5' fill='%231E40AF' opacity='0.7'/><circle cx='35' cy='50' r='5' fill='white'/><circle cx='50' cy='50' r='5' fill='white'/><circle cx='65' cy='50' r='5' fill='white'/><path d='M30 20 L70 20 L65 30 L35 30 Z' fill='%231E40AF' opacity='0.9'/></svg>"
+                            alt="Software para Laboratorios">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>

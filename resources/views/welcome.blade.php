@@ -23,6 +23,14 @@
 
         @livewire('componentespage.hero')
 
+        @livewire('componentespage.feature')
+
+        @livewire('componentespage.soluciones')
+
+        @livewire('componentespage.contacto')
+
+        @livewire('componentespage.footer')
+
         @livewireScripts
     </body>
 </html>

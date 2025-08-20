@@ -106,7 +106,7 @@
     <!-- Copyright Section -->
     <div class="border-t border-gray-200">
         <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
-            <p class="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">© 2023 LabSoft —
+            <p class="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">© {{ now()->year }} Qslab Sistemas —
                 <a href="#" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">Todos los
                     derechos reservados</a>
             </p>

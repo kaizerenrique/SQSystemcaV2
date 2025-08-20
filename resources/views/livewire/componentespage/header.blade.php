@@ -6,7 +6,7 @@
                 <div class="w-10 h-10 text-white p-2 bg-primary rounded-full flex items-center justify-center">
                     <i class="fas fa-flask text-lg"></i>
                 </div>
-                <span class="ml-3 text-xl font-bold">SQ<span class="text-primary">System C.A</span></span>
+                <span class="ml-3 text-xl font-bold">Qslab <span class="text-primary">Sistemas</span></span>
             </a>
 
             <!-- Mobile menu button -->

@@ -136,8 +136,6 @@ class AdministracionUsuarios extends Component
         $this->token = $token;
         $this->mostrarTokenApi = true; 
               
-
-        dd($var);
         session()->flash('message', 'Se a registrado correctamente');
         
     }

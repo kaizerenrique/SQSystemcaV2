@@ -63,7 +63,7 @@
             <div class="info-box">
                 <h3>Información del Laboratorio:</h3>
                 <p><strong>Nombre:</strong> {{ $laboratorio->nombre }}</p>
-                <p><strong>Rif:</strong> {{ $laboratorio->Rif }}</p>                
+                <p><strong>Rif:</strong> {{ $laboratorio->rif }}</p>                
             </div>
             
             <h3>Token de API Generado:</h3>

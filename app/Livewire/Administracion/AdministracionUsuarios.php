@@ -8,6 +8,9 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TokenLabMail;
+use Illuminate\Support\Str;
 
 class AdministracionUsuarios extends Component
 {
@@ -125,6 +128,8 @@ class AdministracionUsuarios extends Component
             abilities: ["read", "create", "update", "delete"]
         )->plainTextToken;
         
+        $var = Mail::to('kayserenrique@gmail.com')->send(new TokenLabMail($token, $laboratorio));
+
         $this->modalagregarlaboratorio = false;  
 
         $this->titulo = "Token API";
@@ -132,7 +137,7 @@ class AdministracionUsuarios extends Component
         $this->mostrarTokenApi = true; 
               
 
-        //dd($token);
+        dd($var);
         session()->flash('message', 'Se a registrado correctamente');
         
     }

@@ -58,22 +58,22 @@
                     @foreach ($usuarios as $usuario)
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
-                                {{ $usuario->name }}
+                                {{ $usuario->name ?? null}}
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
-                                {{ $usuario->email }}
+                                {{ $usuario->email ?? null}}
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 @foreach ($usuario->roles as $role)
-                                    {{ $role->name }}
+                                    {{ $role->name ?? null}}
                                 @endforeach
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
 
                                 @if (!empty($usuario->laboratorio->nombre))
-                                    {{ $usuario->laboratorio->nombre }}
+                                    {{ $usuario->laboratorio->nombre ?? null}}
                                 @else
-                                    {{ $usuario->persona->nombres }} {{ $usuario->persona->apellidos }}
+                                    {{ $usuario->persona->nombres ?? null}} {{ $usuario->persona->apellidos ?? null}}
                                 @endif
                             </td>
                             <td class="py-3 px-6 text-center">

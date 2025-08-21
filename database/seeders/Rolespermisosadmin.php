@@ -26,11 +26,21 @@ class Rolespermisosadmin extends Seeder
         Permission::create(['name' => 'menuEstadistica'])->syncRoles([$admin]);
         Permission::create(['name' => 'menuConfiguraciones'])->syncRoles([$admin]);
 
-        User::create([
+        $administrador = User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('123456789'),
             'email_verified_at' => '2022-02-26 20:48:29'
-        ])->assignRole('Administrador');
+        ])->assignRole('Administrador')->laboratorio()->create([
+            'rif' => 'V-123456789-0',
+            'nombre' => 'admin'
+        ]);
+
+        $administrador->telefono()->create([
+            'codigo_internacional' => '+58',
+            'codigo_operador' => '412',
+            'nrotelefono' => '0000000000',
+            'whatsapp' => false
+        ]);
     }
 }

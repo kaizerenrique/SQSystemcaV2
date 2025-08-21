@@ -67,7 +67,7 @@ class ApiController extends Controller
     public function generadorDeEnlaces(): JsonResponse
     {
         try {
-            $urlBase = config('app.url') ?: 'http://qslabsys.com';
+            $urlBase = config('app.url') ?: 'qslabsistemas.site';
             $codigoUnico = '';
             $maxIntentos = 10;
             $intentos = 0;

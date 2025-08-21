@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialiteAuthController;
+use App\Http\Controllers\ControladorDocumento;
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,6 +10,8 @@ Route::get('/', function () {
 
 Route::get('/auth/redirect', [SocialiteAuthController::Class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/callback', [SocialiteAuthController::Class, 'callback'])->name('auth.callback');
+
+Route::get('/documentos/{codigo}', [ControladorDocumento::class, 'mostrar']);
 
 Route::middleware([
     'auth:sanctum',

@@ -25,7 +25,7 @@ class AdministracionUsuarios extends Component
     //variables para agregar laboratorio
     public $modalagregarlaboratorio = false;
     public $titulo,$mensajemodal;
-    public $nombre, $correo, $laboratorio, $rif, $codigo_internacional, $codigo_operador, $nrotelefono, $whatsapp ;
+    public $nombre, $correo, $laboratorio, $rif, $codigo_internacional, $codigo_operador, $nrotelefono, $whatsapp, $usuario ;
 
     public $eliminarlaboratorio = false;
     public $idusuario;
@@ -174,6 +174,7 @@ class AdministracionUsuarios extends Component
     public function editarlaboratorio(User $usuario)
     {
         $this->titulo = "Editar Datos de Laboratorio";
+        $this->usuario = $usuario;
         $this->nombre = $usuario->name;
         $this->correo = $usuario->email;
         $this->rif = $usuario->laboratorio->rif;
@@ -185,22 +186,22 @@ class AdministracionUsuarios extends Component
         $this->modaleditarlaboratorio = true;
     }
 
-    public function editarlab(User $usuario)    
+    public function editarlab()    
     {
         $this->validate([
             'nombre' => 'required|string|min:4|max:45',
-                'correo' => 'required|string|email|min:12|max:160|unique:users,email',
-                'laboratorio' => 'required|string|min:4|max:255',
-                'rif' => 'required|string|min:8|max:14',                
-                'codigo_internacional' => 'required|string|min:3|max:5', 
-                'codigo_operador' => 'required|string|min:3|max:4', 
-                'nrotelefono' => 'required|string|min:7|max:11', 
-                'whatsapp' => 'required' 
+            'correo' => 'required|string|email|min:12|max:160|unique:users,email,' . $this->usuario->id,
+            'laboratorio' => 'required|string|min:4|max:255',
+            'rif' => 'required|string|min:8|max:14',                
+            'codigo_internacional' => 'required|string|min:3|max:5', 
+            'codigo_operador' => 'required|string|min:3|max:4', 
+            'nrotelefono' => 'required|string|min:7|max:11', 
+            'whatsapp' => 'required' 
         ]);
         
         try {
         // Buscar el usuario
-        $user = User::findOrFail($usuario->id);
+        $user = User::findOrFail($this->usuario->id);
 
         // Actualizar datos de usuario
         $user->update([
@@ -214,8 +215,9 @@ class AdministracionUsuarios extends Component
             'nombre' => $this->laboratorio,
         ]);
 
+        
         // Actualizar teléfono (asumiendo relación one-to-one)
-        $user->telefono()->update([
+        $user->laboratorio->telefono()->update([
             'codigo_internacional' => $this->codigo_internacional,
             'codigo_operador' => $this->codigo_operador,
             'nrotelefono' => $this->nrotelefono,
@@ -228,6 +230,8 @@ class AdministracionUsuarios extends Component
         
         } catch (\Exception $e) {
             session()->flash('error', 'Error al actualizar: ' . $e->getMessage());
+
+            $this->modaleditarlaboratorio = false;
         }
 
     }

@@ -304,6 +304,7 @@
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                
                 <div class="col-span-2 sm:col-span-4 md:col-span-4">
                     <x-label for="nombre" value="{{ __('Nombre del Usuario') }}" />
                     <x-input type="text" class="mt-1 input input-bordered w-full rounded-lg" wire:model="nombre" />

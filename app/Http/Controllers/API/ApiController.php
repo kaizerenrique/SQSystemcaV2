@@ -359,7 +359,7 @@ class ApiController extends Controller
             $request->validate([
                 'nombres' => 'required|string|min:3|max:120',
                 'apellidos' => 'required|string|min:4|max:120',
-                'fnacimiento' => 'required|date',
+                'fnacimiento' => 'nullable|date',
                 'sexo' => 'required|in:Femenino,Masculino', 
                 'nacionalidad' => 'required|string|in:V,E',
                 'cedula' => 'required|string|min:6|max:12|unique:personas,cedula',

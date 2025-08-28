@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 // Consultar el valor del dolar segun el BCV
-Schedule::command(ConsultarValorbcv::class)->hourly();
+Schedule::command(ConsultarValorbcv::class)->everyThirtyMinutes();

@@ -25,4 +25,8 @@ Route::middleware([
     Route::get('/usuarios', function () {
         return view('paginas/administracion/usuarios');
     })->name('usuarios');
+
+    Route::get('/registro_documentos', function () {
+        return view('paginas/laboratorio/registrodedocumentos');
+    })->name('registro-de-documentos');
 });

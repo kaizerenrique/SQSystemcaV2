@@ -19,7 +19,12 @@
                         <x-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
                             {{ __('Usuarios') }}
                         </x-nav-link>                        
-                    @endif                    
+                    @endif 
+                    @if (@Auth::user()->hasPermissionTo('documentoslab'))
+                        <x-nav-link href="{{ route('registro-de-documentos') }}" :active="request()->routeIs('registro-de-documentos')">
+                            {{ __('Documentos') }}
+                        </x-nav-link>                        
+                    @endif                     
                 </div>
             </div>
 

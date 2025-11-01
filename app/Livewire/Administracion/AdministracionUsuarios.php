@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TokenLabMail;
+use App\Mail\CredencialesCliente;
 use Illuminate\Support\Str;
 
 class AdministracionUsuarios extends Component
@@ -98,11 +99,13 @@ class AdministracionUsuarios extends Component
         //validamos los datos del formulario    
         $this->validate();
 
+        $plainPassword = Str::password(12); // 12 caracteres con combinación de letras, números y símbolos
+
         // Paso 1: Crear el usuario
         $user = User::create([
             'name' => $this->nombre,
             'email' => $this->correo,
-            'password' => Hash::make('123456789')
+            'password' => Hash::make($plainPassword)
         ]);
 
         // Paso 2: Asignar el rol
@@ -128,7 +131,8 @@ class AdministracionUsuarios extends Component
             abilities: ["read", "create", "update", "delete"]
         )->plainTextToken;
         
-        $var = Mail::to('kayserenrique@gmail.com')->send(new TokenLabMail($token, $laboratorio));
+        $var = Mail::to('ohaymard@gmail.com')->send(new TokenLabMail($token, $laboratorio));
+        $varsi = Mail::to($this->correo)->send(new CredencialesCliente($this->correo , $plainPassword, $laboratorio));
 
         $this->modalagregarlaboratorio = false;  
 

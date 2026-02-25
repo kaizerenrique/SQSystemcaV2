@@ -99,7 +99,7 @@ class AdministracionUsuarios extends Component
         //validamos los datos del formulario    
         $this->validate();
 
-        $plainPassword = Str::password(12); // 12 caracteres con combinación de letras, números y símbolos
+        $plainPassword = Str::random(12); // 12 caracteres con combinación de letras, números 
 
         // Paso 1: Crear el usuario
         $user = User::create([
@@ -131,7 +131,7 @@ class AdministracionUsuarios extends Component
             abilities: ["read", "create", "update", "delete"]
         )->plainTextToken;
         
-        $var = Mail::to('ohaymard@gmail.com')->send(new TokenLabMail($token, $laboratorio));
+        $var = Mail::to('ohaymard@gmail.com','rootoegc@gmail.com')->send(new TokenLabMail($token, $laboratorio));
         $varsi = Mail::to($this->correo)->send(new CredencialesCliente($this->correo , $plainPassword, $laboratorio));
 
         $this->modalagregarlaboratorio = false;  

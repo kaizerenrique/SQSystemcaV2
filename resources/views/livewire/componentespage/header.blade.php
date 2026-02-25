@@ -21,10 +21,11 @@
 
         <nav id="nav-menu"
             class="md:ml-auto md:mr-auto flex-wrap items-center text-base justify-center hidden md:flex">
-            <a href="#inicio" class="mr-5 hover:text-primary font-medium">Inicio</a>
-            <a href="#caracteristicas" class="mr-5 hover:text-primary font-medium">Características</a>
-            <a href="#soluciones" class="mr-5 hover:text-primary font-medium">Soluciones</a>
-            <a href="#contacto" class="mr-5 hover:text-primary font-medium">Contacto</a>
+            <a href="/#inicio" class="mr-5 hover:text-primary font-medium">Inicio</a>            
+            <a href="/#caracteristicas" class="mr-5 hover:text-primary font-medium">Características</a>
+            <a href="/#soluciones" class="mr-5 hover:text-primary font-medium">Soluciones</a>
+            <a href="/#contacto" class="mr-5 hover:text-primary font-medium">Contacto</a>
+            <a href="{{ url('consulta') }}" class="mr-5 hover:text-primary font-medium">Consulta Resultados</a>
         </nav>
 
         <div class="items-center text-base justify-center mt-4 md:mt-0 hidden md:flex">
@@ -55,10 +56,11 @@
     <!-- Mobile menu (hidden by default) -->
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
         <div class="container mx-auto py-4 px-4">
-            <a href="#inicio" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Inicio</a>
-            <a href="#caracteristicas" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Características</a>
-            <a href="#soluciones" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Soluciones</a>
-            <a href="#contacto" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Contacto</a>
+            <a href="/#inicio" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Inicio</a>
+            <a href="/#caracteristicas" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Características</a>
+            <a href="/#soluciones" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Soluciones</a>
+            <a href="/#contacto" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Contacto</a>
+            <a href="{{ url('consulta') }}" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Contacto</a>
 
             <div class="pt-4 mt-4 border-t border-gray-200">
                 @if (Route::has('login'))
